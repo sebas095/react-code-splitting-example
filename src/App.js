@@ -1,24 +1,18 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, Suspense } from "react";
+import "./App.css";
+
+const Surprise = React.lazy(() => import("./components/Surprise"));
 
 function App() {
+  const [showSurprise, setShowSurprise] = useState(false);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <button onClick={(ev) => setShowSurprise(true)}>Mostrar sorpresa</button>
+      {showSurprise && (
+        <Suspense fallback={<p>Cargando...</p>}>
+          <Surprise />
+        </Suspense>
+      )}
     </div>
   );
 }
